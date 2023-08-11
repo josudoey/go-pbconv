@@ -1,0 +1,4 @@
+syntax = "proto3";
+
+package pbconv.intenal.fixture;
+option go_package = "github.com/josudoey/go-pbconv/internal/fixture";

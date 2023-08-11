@@ -1,6 +1,7 @@
 package pbconv
 
 import (
+	"github.com/josudoey/go-pbconv/internal/fixture"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 
@@ -40,5 +41,32 @@ var _ = Describe("GetFileDescriptorProtoByRaw", func() {
 		Expect(file).ToNot(BeNil())
 		Expect(file.GetName()).To(Equal("github.com/golang/protobuf/ptypes/empty/empty.proto"))
 		Expect(file.GetOptions().GetGoPackage()).To(Equal("github.com/golang/protobuf/ptypes/empty;empty"))
+	})
+})
+
+var _ = Describe("GetFileDescriptorProtoByFilename", func() {
+	var (
+		_ = fixture.File_internal_fixture_file_proto
+
+		filename string
+
+		file *descriptorpb.FileDescriptorProto
+		err  error
+	)
+
+	BeforeEach(func() {
+		filename = "internal/fixture/file.proto"
+	})
+
+	JustBeforeEach(func() {
+		file, err = GetFileDescriptorProtoByFilename(filename)
+	})
+
+	It("success", func() {
+		Expect(err).To(Succeed())
+		Expect(file).ToNot(BeNil())
+
+		Expect(file.GetPackage()).To(Equal("pbconv.intenal.fixture"))
+		Expect(file.GetOptions().GetGoPackage()).To(Equal("github.com/josudoey/go-pbconv/internal/fixture"))
 	})
 })
