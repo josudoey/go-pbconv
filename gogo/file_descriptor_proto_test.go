@@ -8,7 +8,7 @@ import (
 	"google.golang.org/protobuf/types/descriptorpb"
 )
 
-var _ = Describe("ToFileDescriptor", func() {
+var _ = Describe("GetFileDescriptorProtoByFilename", func() {
 	var (
 		filename string
 
