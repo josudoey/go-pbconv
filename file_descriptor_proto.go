@@ -39,3 +39,8 @@ func GetFileDescriptorProtoByFilename(filename string) (*descriptorpb.FileDescri
 	// data from gzipped FileDescriptorProto
 	return GetFileDescriptorProtoByGzippedRaw(goproto.FileDescriptor(filename))
 }
+
+func GetFileDescriptorProtoByMessage(message goproto.Message) (*descriptorpb.FileDescriptorProto, error) {
+	messageReflect := goproto.MessageReflect(message)
+	return GetFileDescriptorProtoByFilename(messageReflect.Descriptor().ParentFile().Path())
+}
