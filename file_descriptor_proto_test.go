@@ -2,11 +2,11 @@ package pbconv
 
 import (
 	goproto "github.com/golang/protobuf/proto"
-	"github.com/golang/protobuf/ptypes/empty"
 	"github.com/josudoey/go-pbconv/internal/fixture"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 	"google.golang.org/protobuf/types/descriptorpb"
+	"google.golang.org/protobuf/types/known/emptypb"
 )
 
 var _ = Describe("GetFileDescriptorProtoByRaw", func() {
@@ -86,7 +86,7 @@ var _ = Describe("GetFileDescriptorProtoByMessage", func() {
 
 	Context("empty.Empty", func() {
 		BeforeEach(func() {
-			message = (*empty.Empty)(nil)
+			message = (*emptypb.Empty)(nil)
 		})
 
 		It("success", func() {
