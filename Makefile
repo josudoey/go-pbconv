@@ -16,10 +16,11 @@ endif
 
 
 .PHONY: build
-build: bin/protoc bin/protoc-gen-go
+build: bin/protoc bin/protoc-gen-go bin/protoc-gen-iface
 	./bin/protoc \
 		-I=. \
 		--go_out=paths=source_relative:. \
+		--iface_out=paths=source_relative:. \
 		./internal/fixture/*.proto
 
 
@@ -38,3 +39,6 @@ bin/protoc-$(protoc_version): bin/protoc-$(protoc_version).zip
 bin/protoc: bin/protoc-$(protoc_version)
 	rm -rf $@
 	ln -s ./protoc-$(protoc_version)/bin/protoc $@
+
+bin/protoc-gen-iface:
+	go build -o $@ ./protoc-gen-iface/main.go
