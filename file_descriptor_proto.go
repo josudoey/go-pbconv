@@ -11,6 +11,7 @@ import (
 )
 
 func GetFileDescriptorProtoByRaw(rawDesc []byte) (*descriptorpb.FileDescriptorProto, error) {
+	// ref https://github.com/protocolbuffers/protobuf/blob/023b43dacf7b0a1f6ded403a46965d277e8cbf3c/src/google/protobuf/descriptor.proto#L61C8-L61C8
 	var file descriptorpb.FileDescriptorProto
 	if err := proto.Unmarshal(rawDesc, &file); err != nil {
 		return nil, err
