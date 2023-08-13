@@ -1,14 +1,13 @@
 package gogoconv
 
 import (
-	. "github.com/onsi/ginkgo"
-	. "github.com/onsi/gomega"
+	"testing"
 
 	_ "github.com/gogo/protobuf/gogoproto"
 	"google.golang.org/protobuf/types/descriptorpb"
 )
 
-var _ = Describe("GetFileDescriptorProtoByFilename", func() {
+func TestGetFileDescriptorProtoByFilename(t *testing.T) {
 	var (
 		filename string
 
@@ -16,24 +15,39 @@ var _ = Describe("GetFileDescriptorProtoByFilename", func() {
 		err  error
 	)
 
-	BeforeEach(func() {
-		// ref https://github.com/gogo/protobuf/blob/f67b8970b736e53dbd7d0a27146c8f1ac52f74e5/gogoproto/gogo.pb.go#L787C1-L787C1
-		filename = "gogo.proto"
-	})
+	// ref https://github.com/gogo/protobuf/blob/f67b8970b736e53dbd7d0a27146c8f1ac52f74e5/gogoproto/gogo.pb.go#L787C1-L787C1
+	filename = "gogo.proto"
 
-	JustBeforeEach(func() {
-		file, err = GetFileDescriptorProtoByFilename(filename)
-	})
+	file, err = GetFileDescriptorProtoByFilename(filename)
+	if err != nil {
+		t.Fatalf("GetFileDescriptorProtoByFilename(%q): got %+v", filename, err)
+	}
 
-	It("success", func() {
-		Expect(err).To(Succeed())
-		Expect(file).ToNot(BeNil())
+	// ref https://github.com/gogo/protobuf/blob/f67b8970b736e53dbd7d0a27146c8f1ac52f74e5/gogoproto/gogo.proto
+	if want := "gogo.proto"; file.GetName() != want {
+		t.Errorf("file name got %q\nwant %q", file.GetName(), want)
+	}
 
-		// ref https://github.com/gogo/protobuf/blob/f67b8970b736e53dbd7d0a27146c8f1ac52f74e5/gogoproto/gogo.proto
-		Expect(file.GetPackage()).To(Equal("gogoproto"))
-		Expect(file.GetOptions().GetGoPackage()).To(Equal("github.com/gogo/protobuf/gogoproto"))
-		Expect(file.GetExtension()[0].GetExtendee()).To(Equal(".google.protobuf.EnumOptions"))
-		Expect(file.GetExtension()[0].GetName()).To(Equal("goproto_enum_prefix"))
-		Expect(file.GetExtension()[0].GetNumber()).To(BeEquivalentTo(62001))
-	})
-})
+	if want := "gogoproto"; file.GetPackage() != want {
+		t.Errorf("file package got %q\nwant %q", file.GetPackage(), want)
+	}
+
+	if want := "github.com/gogo/protobuf/gogoproto"; file.GetOptions().GetGoPackage() != want {
+		t.Errorf("go package option got %q\nwant %q", file.GetOptions().GetGoPackage(), want)
+	}
+
+	{
+		extension := file.GetExtension()[0]
+		if want := ".google.protobuf.EnumOptions"; extension.GetExtendee() != want {
+			t.Errorf("extension got %q\nwant %q", extension.GetExtendee(), want)
+		}
+
+		if want := "goproto_enum_prefix"; extension.GetName() != want {
+			t.Errorf("extension name got %q\nwant %q", extension.GetName(), want)
+		}
+
+		if want := int32(62001); extension.GetNumber() != want {
+			t.Errorf("extension name got %q\nwant %q", extension.GetNumber(), want)
+		}
+	}
+}
