@@ -4,6 +4,7 @@ import (
 	"io"
 	"log"
 	"os"
+	"sync"
 	"testing"
 
 	goproto "github.com/golang/protobuf/proto"
@@ -20,6 +21,8 @@ func TestMain(t *testing.T) {
 	}
 
 	stdoutChan := make(chan []byte, 1)
+	wg := sync.WaitGroup{}
+	wg.Add(1)
 	go func() {
 		originStdout := os.Stdout
 		os.Stdout = testStdout
@@ -27,6 +30,7 @@ func TestMain(t *testing.T) {
 			os.Stdout = originStdout
 		}()
 
+		wg.Done()
 		responseContent, _ := io.ReadAll(testStdoutReader)
 		stdoutChan <- responseContent
 		close(stdoutChan)
@@ -65,6 +69,7 @@ func TestMain(t *testing.T) {
 	testStdinWriter.Write(requestContent)
 	testStdinWriter.Close()
 
+	wg.Wait()
 	main()
 	testStdout.Close()
 
