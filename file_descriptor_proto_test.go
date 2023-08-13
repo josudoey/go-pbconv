@@ -5,7 +5,7 @@ import (
 	"testing"
 
 	goproto "github.com/golang/protobuf/proto"
-	"github.com/josudoey/go-pbconv/internal/fixture"
+	"github.com/josudoey/pbconv/internal/fixture"
 	"google.golang.org/protobuf/types/descriptorpb"
 	"google.golang.org/protobuf/types/known/emptypb"
 )
@@ -75,7 +75,7 @@ func TestGetFileDescriptorProtoByFilename(t *testing.T) {
 		t.Errorf("file package got %q\nwant %q", file.GetPackage(), want)
 	}
 
-	if want := "github.com/josudoey/go-pbconv/internal/fixture"; file.GetOptions().GetGoPackage() != want {
+	if want := "github.com/josudoey/pbconv/internal/fixture"; file.GetOptions().GetGoPackage() != want {
 		t.Errorf("go package option got %q\nwant %q", file.GetOptions().GetGoPackage(), want)
 	}
 }

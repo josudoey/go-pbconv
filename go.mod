@@ -1,4 +1,4 @@
-module github.com/josudoey/go-pbconv
+module github.com/josudoey/pbconv
 
 go 1.15
 

@@ -2,7 +2,7 @@ package gogoconv
 
 import (
 	gogoproto "github.com/gogo/protobuf/proto"
-	pbconv "github.com/josudoey/go-pbconv"
+	pbconv "github.com/josudoey/pbconv"
 	"google.golang.org/protobuf/types/descriptorpb"
 )
 

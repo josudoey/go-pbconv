@@ -3,7 +3,7 @@ package main
 import (
 	"flag"
 
-	"github.com/josudoey/go-pbconv/protoc-gen-iface/internal_geniface"
+	"github.com/josudoey/pbconv/protoc-gen-iface/internal_geniface"
 	"google.golang.org/protobuf/compiler/protogen"
 )
 

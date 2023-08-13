@@ -150,7 +150,7 @@ import (
 	"os"
 
 	goproto "github.com/golang/protobuf/proto"
-	pbconv "github.com/josudoey/go-pbconv"
+	pbconv "github.com/josudoey/pbconv"
 	_ {{printf "%q" .GoPackage}}
 )
 
