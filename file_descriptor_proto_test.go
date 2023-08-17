@@ -84,31 +84,31 @@ func TestGetFileDescriptorProtoByMessage(t *testing.T) {
 	var (
 		message goproto.Message
 
-		file *descriptorpb.FileDescriptorProto
-		err  error
+		fileProto *descriptorpb.FileDescriptorProto
+		err       error
 	)
 
 	message = (*emptypb.Empty)(nil)
 
-	file, err = GetFileDescriptorProtoByMessage(message)
+	fileProto, err = GetFileDescriptorProtoByMessage(message)
 	if err != nil {
 		t.Fatalf("GetFileDescriptorProtoByMessage(%q): got %+v", message, err)
 	}
 
-	if want := "google/protobuf/empty.proto"; file.GetName() != want {
-		t.Errorf("file name got %q\nwant %q", file.GetName(), want)
+	if want := "google/protobuf/empty.proto"; fileProto.GetName() != want {
+		t.Errorf("file name got %q\nwant %q", fileProto.GetName(), want)
 	}
 
-	if want := "google.protobuf"; file.GetPackage() != want {
-		t.Errorf("file package got %q\nwant %q", file.GetPackage(), want)
+	if want := "google.protobuf"; fileProto.GetPackage() != want {
+		t.Errorf("file package got %q\nwant %q", fileProto.GetPackage(), want)
 	}
 
-	if want := "google.golang.org/protobuf/types/known/emptypb"; file.GetOptions().GetGoPackage() != want {
-		t.Errorf("go package option got %q\nwant %q", file.GetOptions().GetGoPackage(), want)
+	if want := "google.golang.org/protobuf/types/known/emptypb"; fileProto.GetOptions().GetGoPackage() != want {
+		t.Errorf("go package option got %q\nwant %q", fileProto.GetOptions().GetGoPackage(), want)
 	}
 
 	// ref https://github.com/protocolbuffers/protobuf-go/blob/6d0a5dbd95005b70501b4cc2c5124dab07a1f4a0/types/known/emptypb/empty.pb.go#L90C1-L90C1
-	rawDesc, _ := goproto.Marshal(file)
+	rawDesc, _ := goproto.Marshal(fileProto)
 	if want := []byte{
 		0x0a, 0x1b, 0x67, 0x6f, 0x6f, 0x67, 0x6c, 0x65, 0x2f, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x62, 0x75,
 		0x66, 0x2f, 0x65, 0x6d, 0x70, 0x74, 0x79, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x12, 0x0f, 0x67,

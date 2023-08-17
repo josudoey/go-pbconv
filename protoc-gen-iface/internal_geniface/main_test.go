@@ -15,14 +15,14 @@ import (
 
 func TestGenerateFile(t *testing.T) {
 	fileProtoPath := structpb.File_google_protobuf_struct_proto.Path()
-	protoFile, _ := pbconv.GetFileDescriptorProtoByFilename(fileProtoPath)
+	fileProto, _ := pbconv.GetFileDescriptorProtoByFilename(fileProtoPath)
 
 	genOptions := protogen.Options{}
 	gen, err := genOptions.New(&pluginpb.CodeGeneratorRequest{
 		Parameter:      proto.String(""),
 		FileToGenerate: []string{fileProtoPath},
 		ProtoFile: []*descriptorpb.FileDescriptorProto{
-			protoFile,
+			fileProto,
 		},
 	})
 

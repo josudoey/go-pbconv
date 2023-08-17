@@ -54,11 +54,11 @@ func TestMain(t *testing.T) {
 	}()
 
 	fileProtoPath := fixture.File_internal_fixture_file_proto.Path()
-	protoFile, _ := pbconv.GetFileDescriptorProtoByFilename(fileProtoPath)
+	fileProto, _ := pbconv.GetFileDescriptorProtoByFilename(fileProtoPath)
 	req := &pluginpb.CodeGeneratorRequest{
 		FileToGenerate: []string{fileProtoPath},
 		ProtoFile: []*descriptorpb.FileDescriptorProto{
-			protoFile,
+			fileProto,
 		},
 	}
 
