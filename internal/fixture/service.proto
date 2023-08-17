@@ -1,0 +1,11 @@
+syntax = "proto3";
+package fixture.service;
+option go_package = "github.com/josudoey/internal/fixture/service";
+
+message StringMessage {
+	string value = 1;
+}
+
+service Service {
+	rpc Echo(StringMessage) returns (StringMessage) {}
+}
