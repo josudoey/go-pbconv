@@ -1,6 +1,6 @@
 syntax = "proto3";
 package fixture.service;
-option go_package = "github.com/josudoey/internal/fixture/service";
+option go_package = "github.com/josudoey/internal/fixture";
 
 message StringMessage {
 	string value = 1;
