@@ -38,5 +38,4 @@ func (t *FixtureStruct0) GetFixtureField1() interface{} { return nil }
 	if want := "GetFixtureField1"; methodFuncs[1].Name.String() != want {
 		t.Errorf("methodFuncs[1].Name got %q\nwant  %q", methodFuncs[1].Name.String(), want)
 	}
-
 }
